@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LineComparisonProblem
 {
-    public class Line
+    public class Line : IComparable<Line>
     {
         public double x1, y1, x2, y2;
 
@@ -46,19 +46,43 @@ namespace LineComparisonProblem
                 return hash;
             }
         }
+
+        public int CompareTo(Line other)
+        {
+            double length1 = this.Length();
+            double length2 = other.Length();
+
+            if (length1 == length2)
+            {
+                return 0;
+            }
+            else if (length1 > length2)
+            {
+                return 1;
+            }
+            else
+            {
+                return -1;
+            }
+        }
     }
+
 
     internal class Program
     {
+        
         static void Main(string[] args)
         {
+            Console.WriteLine("Welcome to Line Comparison Computation");
             Line line1 = new Line(0, 0, 1, 1);
             Line line2 = new Line(0, 0, 1, 1);
             Line line3 = new Line(0, 0, 1, 2);
 
-            Console.WriteLine("Line 1 length: " + line1.Length()); // Output: 1.4142135623730951
-            Console.WriteLine("Line 1 equals Line 2: " + line1.Equals(line2)); // Output: True
-            Console.WriteLine("Line 1 equals Line 3: " + line1.Equals(line3)); // Output: False
+            Console.WriteLine("Line 1 length: " + line1.Length()); 
+            Console.WriteLine("Line 1 equals Line 2: " + line1.Equals(line2));
+            Console.WriteLine("Line 1 equals Line 3: " + line1.Equals(line3)); 
+            Console.WriteLine("Line 1 compared to Line 2: " + line1.CompareTo(line2)); 
+            Console.WriteLine("Line 1 compared to Line 3: " + line1.CompareTo(line3));
             Console.ReadLine();
         }
     }
